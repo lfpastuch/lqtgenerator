@@ -33,9 +33,30 @@ clan_uva = {
 }
 
 especial = {
-    0: 'Ó',
+    0: 'ó',
     1: 'EU SOU O LUQUITOOO AHHHH',
-    2: 'Tá na jungle farmando hard'
+    2: 'tá na jungle farmando hard',
+    3: 'vou aplicar a lei do solinho',
+}
+
+adjetivo_dmais = {
+    0: 'gordo',
+    1: 'carinhas',
+    2: 'gado',
+}
+
+adjetivo_do = {
+    0: 'baby',
+    1: 'xesk',
+    2: 'bresk',
+    3: 'chesque',
+}
+
+adicional = {
+    0: 'papai',
+    1: 'meu papai',
+    2: 'pai',
+    3: 'meu pai',
 }
 
 
@@ -62,23 +83,53 @@ def frase_eu_vou():
     return str('Eu vou ') + str(s1) + ' ' + str(s2)
 
 
-def frases_especiais():
+def frase_dmais():
+    # (ADJETIVO) d+
+    r = random.randint(0, len(adjetivo_dmais) - 1)
+    s = adjetivo_dmais.get(r)
+    s = str(s) + ' d+'
+    return str(frase_adicional(s))
+
+
+def frase_especial():
     r = random.randint(0, len(especial) - 1)
     s = especial.get(r)
     return str(s)
 
 
-def tipo_frase():
+def frase_do():
+    r = random.randint(0, len(adjetivo_do) - 1)
+    s = adjetivo_do.get(r)
+    s = str(s) + ' do ' + str(s)
+    return str(frase_adicional(s))
+
+
+def frase_adicional(s):
     r = random.randint(0, 100)
-    if r >= 0 and r <= 25:
+    if r <= 99:
+        return s
+    else:
+        r = random.randint(0, len(adicional) - 1)
+        return str(s) + ' ' + str(adicional.get(r))
+
+
+def gera_frase():
+    r = random.randint(0, 100)
+    if r <= 20:
         return str(frase_ai_1())
-    elif r >= 26 and r <= 80:
+    elif r >= 21 and r <= 40:
         return str(frase_ai_2())
-    elif r >= 81 and r <= 99:
+    elif r >= 41 and r <= 60:
         return str(frase_eu_vou())
+    elif r >= 61 and r <= 80:
+        return str(frase_dmais())
+    elif r >= 81 and r <= 99:
+        return str(frase_do())
     elif r >= 100:
-        return str(frases_especiais())
+        return str(frase_especial())
 
 
 for i in range(0, 1000):
-    print(tipo_frase())
+    s = gera_frase()
+    s = s[0].upper() + s[1:]
+    print(s)
