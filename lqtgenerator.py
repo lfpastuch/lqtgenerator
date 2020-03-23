@@ -144,9 +144,3 @@ def gera_frase():
         return str(frase_pior_que())
     elif r >= 120:
         return str(frase_especial())
-
-
-for i in range(0, 1000):
-    s = gera_frase()
-    s = s[0].upper() + s[1:]
-    print(s)
