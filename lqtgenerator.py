@@ -67,6 +67,18 @@ adicional = [
     'meu primo',
 ]
 
+jogos = [
+    'Dota 2 (Lion mid)',
+    'Dota 2 (Pudge mid)',
+    'Dota 2 (Legion jungle)',
+]
+
+
+def gera_jogo():
+    r = random.randint(0, len(jogos) - 1)
+    s = jogos[r]
+    return str(s)
+
 
 def frase_pior_que():
     # pior que daí é (MOIOS)

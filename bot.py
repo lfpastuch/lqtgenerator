@@ -1,7 +1,9 @@
+import os
 import discord
+from discord import Game
 import lqtgenerator
 
-TOKEN = ''
+TOKEN = os.environ['LUQUITO_BOT']
 
 client = discord.Client()
 
@@ -12,16 +14,23 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('!frase'):
+    if message.content == '!frasetts':
+        msg = lqtgenerator.gera_frase()
+        await message.channel.send(tts=True, content=msg)
+
+    if message.content == '!frase':
         msg = lqtgenerator.gera_frase()
         await message.channel.send(msg)
+
+    if message.content == '!jogo':
+        s = lqtgenerator.gera_jogo()
+        await client.change_presence(activity=Game(name=s))
 
 
 @client.event
 async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
+    s = lqtgenerator.gera_jogo()
+    await client.change_presence(activity=Game(name=s))
+    print("Logged in as " + client.user.name)
 
 client.run(TOKEN)
