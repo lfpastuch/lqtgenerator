@@ -9,8 +9,28 @@ client = discord.Client()
 
 
 @client.event
+async def clear(channel):
+    messages = []
+    async for message in channel.history(limit=100):
+        if message.author == client.user:
+            messages.append(message)
+        if message.content == '!frasetts':
+            messages.append(message)
+
+        if message.content == '!frase':
+            messages.append(message)
+
+        if message.content == '!jogo':
+            messages.append(message)
+
+        if message.content == '!clear':
+            messages.append(message)
+
+    await channel.delete_messages(messages)
+
+
+@client.event
 async def on_message(message):
-    # we do not want the bot to reply to itself
     if message.author == client.user:
         return
 
@@ -25,6 +45,9 @@ async def on_message(message):
     if message.content == '!jogo':
         s = lqtgenerator.gera_jogo()
         await client.change_presence(activity=Game(name=s))
+
+    if message.content == '!clear':
+        await clear(message.channel)
 
 
 @client.event
