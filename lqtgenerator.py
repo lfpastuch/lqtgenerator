@@ -20,6 +20,7 @@ moios = [
     'trodos',
     'trotos',
     'badaras',
+    'baradas',
 ]
 
 clan_uva = [
@@ -41,7 +42,12 @@ especial = [
     'EU SOU O LUQUITOOO AHHHH',
     'tá na jungle farmando hard',
     'vou aplicar a lei do solinho',
-    'Que se foda catequese'
+    'que se foda catequese',
+    'pai tá chato',
+    'pai tá chato, né?',
+    'dalhe na narguilheira',
+    'o cara é um mamute',
+    'o cara é um mamute, né?'
 ]
 
 adjetivo_dmais = [
@@ -49,6 +55,8 @@ adjetivo_dmais = [
     'carinhas',
     'gado',
     'badaras',
+    'baradas',
+    'pipinhas léguas',
 ]
 
 adjetivo_do = [
@@ -65,12 +73,17 @@ adicional = [
     'meu pai',
     'primo',
     'meu primo',
+    'papebas',
+    'meu papebas',
 ]
 
 jogos = [
     'Dota 2 (Lion mid)',
     'Dota 2 (Pudge mid)',
     'Dota 2 (Legion jungle)',
+    'Poketibia',
+    'CoD',
+    'Grand Chase',
 ]
 
 
@@ -133,7 +146,7 @@ def frase_do():
 
 def frase_adicional(s):
     r = random.randint(0, 100)
-    if r <= 99:
+    if r <= 50:
         return s
     else:
         r = random.randint(0, len(adicional) - 1)
@@ -141,7 +154,7 @@ def frase_adicional(s):
 
 
 def gera_frase():
-    r = random.randint(0, 120)
+    r = random.randint(0, 140)
     if r <= 20:
         return str(frase_ai_1())
     elif r >= 21 and r <= 40:
@@ -152,7 +165,7 @@ def gera_frase():
         return str(frase_dmais())
     elif r >= 81 and r <= 100:
         return str(frase_do())
-    elif r >= 101 and r <= 119:
+    elif r >= 101 and r <= 120:
         return str(frase_pior_que())
-    elif r >= 120:
+    elif r >= 121 and r <= 140:
         return str(frase_especial())
