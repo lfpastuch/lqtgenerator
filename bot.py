@@ -1,59 +1,56 @@
 import os
 import discord
 from discord import Game
+import discord.ext
+from discord.ext import commands
+from discord.ext.commands import has_permissions, MissingPermissions
 import lqtgenerator
 
 TOKEN = os.environ['LUQUITO_BOT']
 
-client = discord.Client()
+bot = commands.Bot(command_prefix='!')
 
 
-@client.event
-async def clear(channel):
-    messages = []
-    async for message in channel.history(limit=100):
-        if message.author == client.user:
-            messages.append(message)
-        if message.content == '!frasetts':
-            messages.append(message)
+def check_message(m):
+    if m.author == bot.user:
+        return True
 
-        if message.content == '!frase':
-            messages.append(message)
+    if m.content == '!frasetts':
+        return True
 
-        if message.content == '!jogo':
-            messages.append(message)
+    if m.content == '!frase':
+        return True
 
-        if message.content == '!clear':
-            messages.append(message)
+    if m.content == '!jogo':
+        return True
 
-    await channel.delete_messages(messages)
+    if m.content == '!clear':
+        return True
+
+    return False
 
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content == '!frasetts':
-        msg = lqtgenerator.gera_frase()
-        await message.channel.send(tts=True, content=msg)
-
-    if message.content == '!frase':
-        msg = lqtgenerator.gera_frase()
-        await message.channel.send(msg)
-
-    if message.content == '!jogo':
-        s = lqtgenerator.gera_jogo()
-        await client.change_presence(activity=Game(name=s))
-
-    if message.content == '!clear':
-        await clear(message.channel)
+@bot.command(name='clear')
+@has_permissions(manage_channels=True)
+async def clear(ctx):
+    await ctx.channel.purge(limit=100, check=check_message)
 
 
-@client.event
-async def on_ready():
-    s = lqtgenerator.gera_jogo()
-    await client.change_presence(activity=Game(name=s))
-    print("Logged in as " + client.user.name)
+@clear.error
+async def clear_error(ctx, error):
+    text = 'Sem permissão, irmão'
+    await ctx.send(text)
 
-client.run(TOKEN)
+
+@bot.command(name='frase')
+async def frase(ctx):
+    msg = lqtgenerator.gera_frase()
+    await ctx.send(msg)
+
+
+@bot.command(name='frasetts')
+async def frasetts(ctx):
+    msg = lqtgenerator.gera_frase()
+    await ctx.send(content=msg, tts=True)
+
+bot.run(TOKEN)
