@@ -53,4 +53,10 @@ async def frasetts(ctx):
     msg = lqtgenerator.gera_frase()
     await ctx.send(content=msg, tts=True)
 
+
+@bot.command(name='jogo')
+async def jogo(ctx):
+    game = discord.Game(lqtgenerator.gera_jogo())
+    await bot.change_presence(activity=game)
+
 bot.run(TOKEN)
