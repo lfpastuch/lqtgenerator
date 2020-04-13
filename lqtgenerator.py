@@ -38,7 +38,7 @@ clan_uva = [
 ]
 
 especial = [
-    'ó',
+    'Ó',
     'EU SOU O LUQUITOOO AHHHH',
     'tá na jungle farmando hard',
     'vou aplicar a lei do solinho',
@@ -47,7 +47,12 @@ especial = [
     'pai tá chato, né?',
     'dalhe na narguilheira',
     'o cara é um mamute',
-    'o cara é um mamute, né?'
+    'o cara é um mamute, né?',
+    'ADURIANO NEH',
+    'Boneco de posto'
+    'tá maluco, tá doidão',
+    'piá, é isso piá',
+    'tem que ver isso aí',
 ]
 
 adjetivo_dmais = [
@@ -66,7 +71,7 @@ adjetivo_do = [
     'chesque',
 ]
 
-adicional = [
+adicional_final = [
     'papai',
     'meu papai',
     'pai',
@@ -75,6 +80,11 @@ adicional = [
     'meu primo',
     'papebas',
     'meu papebas',
+    'tá ligado',
+]
+
+adicional_inicio = [
+    'piá',
 ]
 
 jogos = [
@@ -128,7 +138,7 @@ def frase_dmais():
     r = random.randint(0, len(adjetivo_dmais) - 1)
     s = adjetivo_dmais[r]
     s = str(s) + ' d+'
-    return str(frase_adicional(s))
+    return str(frase_adicional_ambas(s))
 
 
 def frase_especial():
@@ -141,19 +151,32 @@ def frase_do():
     r = random.randint(0, len(adjetivo_do) - 1)
     s = adjetivo_do[r]
     s = str(s) + ' do ' + str(s)
-    return str(frase_adicional(s))
+    return str(frase_adicional_ambas(s))
 
 
-def frase_adicional(s):
+def frase_adicional_final(s):
     r = random.randint(0, 100)
     if r <= 50:
         return s
     else:
-        r = random.randint(0, len(adicional) - 1)
-        return str(s) + ' ' + str(adicional[r])
+        r = random.randint(0, len(adicional_final) - 1)
+        return str(s) + ', ' + str(adicional_final[r])
 
 
-def gera_frase():
+def frase_adicional_inicial(s):
+    r = random.randint(0, 100)
+    if r <= 50:
+        return s
+    else:
+        r = random.randint(0, len(adicional_inicio) - 1)
+        return str(adicional_inicio[r]) + ', ' + str(s)
+
+
+def frase_adicional_ambas(s):
+    return str(frase_adicional_final(frase_adicional_inicial(s)))
+
+
+def frase():
     r = random.randint(0, 140)
     if r <= 20:
         return str(frase_ai_1())
@@ -169,3 +192,8 @@ def gera_frase():
         return str(frase_pior_que())
     elif r >= 121 and r <= 140:
         return str(frase_especial())
+
+
+def gera_frase():
+    s = frase()
+    return s[0].upper() + s[1:]
