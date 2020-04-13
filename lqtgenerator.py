@@ -69,6 +69,7 @@ adjetivo_do = [
     'xesk',
     'bresk',
     'chesque',
+    'bait',
 ]
 
 adicional_final = [
